@@ -1,0 +1,1 @@
+Select * From users_auth0 where auth_id=$1 limit 1;
