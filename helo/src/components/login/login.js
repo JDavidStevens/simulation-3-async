@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import logo from '../../assets/logo.png';
+import './login.css';
 
 export default class Login extends Component {
 
@@ -11,8 +13,12 @@ export default class Login extends Component {
   
   
   render() {
-    return <div>
+    return <div className="login-page-background">
+    <div className="logo-title-login-box">
+    <img src={logo} alt='' className="logo"/>
+    <h1 className="title">Helo</h1>
       <button onClick={this.login}>Login/Register</button>
+      </div>
     </div>
   }
 }

@@ -5,6 +5,7 @@ const massive = require('massive');
 const sessionCtrl = require('./Controllers/sessionCtrl');
 const authCtrl = require('./Controllers/authCtrl');
 
+
 require('dotenv').config();
 
 let { SERVER_PORT, SESSION_SECRET } = process.env;
@@ -29,8 +30,9 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 //Auth0 endpoints
 app.get('/auth/callback', authCtrl.authCallBack)
 
-//session endpoint
+//session endpoints
 app.get('/api/auth/setUser', sessionCtrl)
+app.get('/api/auth/authenticated',sessionCtrl)
 
 
 app.listen(SERVER_PORT, () => { console.log(`Sever is listening on port ${SERVER_PORT}.`) })

@@ -24,11 +24,11 @@ module.exports = {
         let foundUser = await db.read_user([sub]);
         if (foundUser[0]){
             req.session.user=foundUser[0]
-            res.redirect('/api/auth/setUser')
+            res.redirect('/#/dashboard')
         }else{
             let createdUser=await db.create_user([sub,name,email,picture])
             req.session.user=createdUser[0];
-            res.redirect('/api/auth/setUser')
+            res.redirect('/#/dashboard')
         }
         
 }}
