@@ -8,7 +8,7 @@ const authCtrl = require('./Controllers/authCtrl');
 
 require('dotenv').config();
 
-let { SERVER_PORT, SESSION_SECRET } = process.env;
+let { SERVER_PORT, SESSION_SECRET,CONNECTION_STRING } = process.env;
 
 const app = express();
 
@@ -22,13 +22,14 @@ app.use(
     })
 )
 
-massive(process.env.CONNECTION_STRING).then(dbInstance => {
+massive(CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance)
 })
 
 
 //Auth0 endpoints
 app.get('/auth/callback', authCtrl.authCallBack)
+app.post('/api/auth/logout', authCtrl.logout)
 
 //session endpoints
 app.get('/api/auth/setUser', sessionCtrl)

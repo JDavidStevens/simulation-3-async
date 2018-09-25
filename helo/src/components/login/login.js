@@ -17,7 +17,7 @@ export default class Login extends Component {
     <div className="logo-title-login-box">
     <img src={logo} alt='' className="logo"/>
     <h1 className="title">Helo</h1>
-      <button onClick={this.login}>Login/Register</button>
+      <button onClick={this.login} className="login-register-button">Login/Register</button>
       </div>
     </div>
   }

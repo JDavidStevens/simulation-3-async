@@ -29,6 +29,10 @@ module.exports = {
             let createdUser=await db.create_user([sub,name,email,picture])
             req.session.user=createdUser[0];
             res.redirect('/#/dashboard')
-        }
-        
-}}
+        }},
+logout: (req,res)=>{
+    req.session.destroy();
+    res.status(200).send();
+}
+
+}

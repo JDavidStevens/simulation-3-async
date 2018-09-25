@@ -1,13 +1,41 @@
 .login-page-background{
     background-image: linear-gradient(99deg,#ff70a6,#ff9970 40%,#ffd670 73%, #e9ff70); 
     height: 100vh; 
+    display: flex;
+    justify-content: center;
   }
 
   .logo-title-login-box{
-    background-image: linear-gradient(97deg,#ff7a6e,#ff9970); 
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1) 0 6px 6px 0 rgba(0,0,0,0.2);
+    border-radius: 8px;
+    background-image: linear-gradient(128deg,rgba(64,61,57,0.1),rgba(255,255,255,0.2)); 
+    box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25) 0 10px 10px 0, rgba(0,0,0,0.26);
+    width: 25vw;
+    height: 40vh;
+    margin: auto;
+    
+  }
+
+  .logo{
+    padding-top: 3vh;
   }
 
   .title{
       color: white;
   }
+
+  .login-register-button{
+    margin-bottom: 3vh;
+    background-color: black;
+    color: white;
+    width: 16vw;
+    height: 4vh;
+    border-style: none;
+    border-radius: 1px;
+    font-weight: 700;
+  }
+
+  .login-register-button:hover{
+    cursor: pointer;
+  }
+
+  
