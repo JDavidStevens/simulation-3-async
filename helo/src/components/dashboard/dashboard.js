@@ -12,7 +12,8 @@ export default class Dashboard extends Component {
   constructor() {
     super()
     this.state = {
-      user: {}
+      user: {},
+      robots: []
     }
   }
 
@@ -24,16 +25,24 @@ export default class Dashboard extends Component {
           user: res.data
         })
       })
+
+      // axios.get('/api/user/list').then(response=>{
+      //   this.setState({robots: response.data})
+      // })
   }
 
   render() {
     return <div className="dashboard-page">
-      <div>
-    <h1>Helo</h1>
-    <Link to='/dashboard'><img src={Home} alt=""/></Link>
-    <Link to='/search'><img src={Search} alt=''/> </Link>
-    <h2>Dashboard</h2>
-    <a onClick={this.logout}>Logout</a>
+      <div className="header">
+      <div className="left-header">
+    <h1 className="navbar-title-helo">Helo</h1>
+    <Link to='/dashboard' className="home-logo-link"><img src={Home} alt=""/></Link>
+    <Link to='/search' className="search-logo-link"><img src={Search} alt=''/> </Link>
+    </div>
+    
+    <h2 className="navbar-page-title">Dashboard</h2>
+    
+    <a onClick={this.logout} className="logout">Logout</a>
     
     </div>
       <div className="profile-welcome-box">

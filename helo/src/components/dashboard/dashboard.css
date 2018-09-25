@@ -1,7 +1,45 @@
 .dashboard-page{
     background-color: #f2f2f2;
     height: 100vh;
-    
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100vw;
+    background-image: linear-gradient(97deg, #ff7a6e,#ff9770);
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1), 0 6px 6px 0 rgba(0,0,0,0.2);
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.left-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-title-helo{
+padding-right: 1.25vw; 
+margin-left: 15vw;
+}
+
+.home-logo-link{
+    margin: auto;
+    padding-right: 1.25vw;
+}
+
+.search-logo-link{
+    margin: auto;
+    padding-right: 6.5vw;
+}
+
+.navbar-page-title{
+    margin:auto;
+}
+
+.logout{
+    margin: auto;
 }
 
 .profile-welcome-box{
