@@ -1,9 +1,9 @@
 create table users_auth0(
-    id SERIAL PRIMARY KEY,
-    auth_id VARCHAR NOT NULL,
-    email VARCHAR NOT NULL,
-    profile_name TEXT NOT NULL,
-    picture TEXT NOT NULL
+    id SERIAL PRIMARY KEY not null,
+    auth_id text unique,
+    name VARCHAR(75),
+    email VARCHAR(75),
+    picture TEXT
 )
 
 create table robots(
