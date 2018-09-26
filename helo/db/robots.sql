@@ -1,0 +1,1 @@
+select * from robots order by id asc;
