@@ -1,8 +1,8 @@
-module.exports = function(req,res,next){
+module.exports = function(req,res){
         if (req.session.user){
-            res.status(200).send()
+            res.status(200).send(req.session.user)
         } else {
-            console.log('unauthorized')
-            res.sendStatus(403)
+            // console.log('unauthorized')
+            res.redirect('/')
         }
     }

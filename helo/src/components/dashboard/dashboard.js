@@ -1,33 +1,42 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {updateUserData} from '../../ducks/reducer';
 import Home from '../../assets/home.png';
 import Search from '../../assets/search.png';
 import './dashboard.css';
 
 
 
-export default class Dashboard extends Component {
-
-  constructor() {
+class Dashboard extends Component {
+  constructor(){
     super()
-    this.state = {
-      user: {},
-      robots: []
+
+    this.state={
+
+      robots:[]
     }
+
+    this.logout=this.logout.bind(this);
   }
+  
 
   componentDidMount() {
 
-    axios.get('/api/auth/setUser')
+    axios.get('/api/user-data')
       .then((res) => {
-        this.setState({
-          user: res.data
-        })
+        this.props.updateUserData(res.data)
       })
 
     axios.get('/api/user/list').then(response => {
       this.setState({ robots: response.data })
+    })
+  }
+
+  logout(){
+    axios.post('/api/auth/logout').then(res=>{
+      this.props.history.push('/')
     })
   }
 
@@ -95,6 +104,9 @@ export default class Dashboard extends Component {
             <div className="recommended-friends-heading">
               <h2 className="recommended-friends-title">Recommended Friends</h2>
               <h4>Sorted by</h4>
+              <select>
+                
+              </select>
             </div>
             <div className="recommended-friends" >
               {robos}
@@ -105,3 +117,14 @@ export default class Dashboard extends Component {
     )
   }
 }
+
+function mapStateToProps(state){
+  return{
+    user: state.user
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {updateUserData}
+)(Dashboard)

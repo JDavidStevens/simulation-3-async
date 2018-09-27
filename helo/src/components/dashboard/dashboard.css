@@ -113,7 +113,7 @@ padding: 0 .75vw 0 .5vw;
 
 .recommended-friends-heading{
     display: grid;
-    grid-template-columns: 35vw 16.5vw;
+    grid-template-columns: 30vw 16.5vw;
 }
 
 .recommended-friends-title{
@@ -161,6 +161,7 @@ margin-right: 4vw;
     align-items: center;
     margin: 0vh .5vw 1vh 0vw; 
 }
+
 .add-friend{
     color: white;
     border-radius: 1px;

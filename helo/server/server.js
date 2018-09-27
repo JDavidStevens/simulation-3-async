@@ -32,9 +32,8 @@ massive(CONNECTION_STRING).then(dbInstance => {
 app.get('/auth/callback', authCtrl.authCallBack)
 app.post('/api/auth/logout', authCtrl.logout)
 
-//session endpoints
-app.get('/api/auth/setUser', sessionCtrl)
-app.get('/api/auth/authenticated',sessionCtrl)
+//session endpoint
+app.get('/api/user-data', sessionCtrl)
 
 //Robots endpoints
 app.get('/api/user/list',robotCtrl.read)
