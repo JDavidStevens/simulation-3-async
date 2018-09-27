@@ -22,7 +22,7 @@ export default class Profile extends Component {
       year: '',
       img: ''
     }
-    
+    console.log("bday:",this.state.bday)
 
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleLastName = this.handleLastName.bind(this);
@@ -155,7 +155,7 @@ export default class Profile extends Component {
               <h3 className="user-last-name">{this.state.lastName}</h3>
             </div>
             <div className="profile-page-buttons-container">
-              <button className="profile-update" onClick={() => this.handleUpdate(this.props.match.params.id, this.state.gender, this.state.month)}>Update</button>
+              <button className="profile-update" onClick={() => this.handleUpdate(this.props.match.params.id, this.state.firstName,this.state.lastName,this.state.gender,this.state.hairColor,this.state.eyeColor,this.state.hobby,this.state.day, this.state.month,this.state.year)}>Update</button>
               <button className="profile-cancel" onClick={()=>this.handleCancel(this.props.match.params.id)}>Cancel</button>
             </div>
           </div>
