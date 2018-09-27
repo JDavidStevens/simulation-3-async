@@ -9,7 +9,7 @@ export default(
     <Switch>
         <Route component={Login} exact path='/'/>
         <Route component={Dashboard} path= '/dashboard'/>
-        <Route component={Profile} path= '/profile'/>
+        <Route component={Profile} path= '/profile/:id'/>
         <Route component={SearchPage} path= '/search'/>
     </Switch>
 )

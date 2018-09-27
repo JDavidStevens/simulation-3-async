@@ -1,6 +1,6 @@
 .profile-page{
     background-color: #f2f2f2;
-    height: 100vh;
+    height: 100%;
 }
 
 .header{
@@ -41,3 +41,69 @@ margin-left: 15vw;
 .logout{
     margin: auto;
 }
+
+.edit-content{
+    width: 50%;
+    margin: auto;
+}
+
+.profile-header{
+    display: grid;
+    grid-template-columns: 9vw 15.5vw 24.8vw;
+    grid-template-rows: 20vh;
+    margin-top: 3vh;
+    padding-bottom: 3vh; 
+    background-color: white;
+    padding-bottom: .5vh; 
+}
+
+.profile-page-name-container{
+    text-align: left;
+    margin-top: 5vh;
+}
+
+.profile-page-buttons-container{
+    display: grid;
+    grid-template-columns: 8vw 8vw ;
+    grid-template-rows: 12vh;
+    justify-content: end;
+}
+
+.profile-update{
+border-radius:1px;
+background-image: radial-gradient(circle at 50% -46%, #737373, #403d39);
+box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+color: white;
+text-decoration: none; 
+margin-top: 8.5vh;
+margin-right: 2vw;
+}
+
+.profile-update:hover{
+    cursor: pointer;
+}
+
+.profile-cancel{
+    border-radius: 1px;
+    background-image: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
+    border:solid 1px #ccc3c3;
+    color: black;
+    text-decoration: none;
+    margin-top: 8.5vh;
+    margin-right: 2vw;
+}
+
+.profile-cancel:hover{
+    cursor: pointer;
+}
+
+.profile-updaters{
+    background-color: white;
+    display: grid;
+    justify-content: center;
+    text-align: left;
+    grid-template-columns: 15vw 15vw;
+    grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh;
+    margin-top: 3vh;
+}
+

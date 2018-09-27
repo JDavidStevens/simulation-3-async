@@ -42,6 +42,10 @@ margin-left: 15vw;
     margin: auto;
 }
 
+.logout:hover{
+    cursor: pointer;
+}
+
 .dashboard-content{
     width: 50%;
     margin: auto;
@@ -65,7 +69,7 @@ flex-direction: row;
 
 .profile-img-container{
     border: solid #ff9770 3px;
-    margin: 1vh 0vw .8vh .75vw;
+    margin: 1vh 0vw 1.5vh .75vw;
 }
 
 .profile-name-edit-container{
@@ -95,6 +99,10 @@ background-image: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
 border:solid 1px #ccc3c3;
 color: black;
 text-decoration: none;
+}
+
+.edit-button:hover{
+    cursor: pointer;
 }
 
 .welcome{

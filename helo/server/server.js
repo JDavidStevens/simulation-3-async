@@ -37,6 +37,8 @@ app.get('/api/user-data', sessionCtrl)
 
 //Robots endpoints
 app.get('/api/user/list',robotCtrl.read)
+app.get('/api/user/list/:id',robotCtrl.getOne)
+app.post('/api/friend/add',robotCtrl.add)
 
 
 app.listen(SERVER_PORT, () => { console.log(`Sever is listening on port ${SERVER_PORT}.`) })

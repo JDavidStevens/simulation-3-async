@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import {connect} from 'react-redux';
-import {updateUserData} from '../../ducks/reducer';
+import { connect } from 'react-redux';
+import { updateUserData } from '../../ducks/reducer';
 import Home from '../../assets/home.png';
 import Search from '../../assets/search.png';
 import './dashboard.css';
@@ -10,23 +10,29 @@ import './dashboard.css';
 
 
 class Dashboard extends Component {
-  constructor(){
+  constructor() {
     super()
 
-    this.state={
+    this.state = {
 
-      robots:[]
+      robots: []
     }
 
-    this.logout=this.logout.bind(this);
+    this.logout = this.logout.bind(this);
+    this.handleAddFriend = this.handleAddFriend.bind(this);
   }
-  
+
 
   componentDidMount() {
 
     axios.get('/api/user-data')
+
       .then((res) => {
         this.props.updateUserData(res.data)
+        console.log("What?", res.data)
+      })
+      .catch(() => {
+        this.props.history.push('/')
       })
 
     axios.get('/api/user/list').then(response => {
@@ -34,10 +40,15 @@ class Dashboard extends Component {
     })
   }
 
-  logout(){
-    axios.post('/api/auth/logout').then(res=>{
+  logout() {
+    axios.post('/api/auth/logout').then(res => {
       this.props.history.push('/')
     })
+  }
+
+  handleAddFriend(id) {
+    axios.post(`/api/friend/add`, { id })
+      .then(results => { this.setState({ robots: results.data[0] }) })
   }
 
   render() {
@@ -56,7 +67,7 @@ class Dashboard extends Component {
                     <h2 className="user-last-name">{element.last_name}</h2>
                   </div>
                   <div className="edit-button-container">
-                    <Link to='/profile' className="edit-button">Edit Profile</Link>
+                    <Link to={`/profile/${element.id}`} className="edit-button">Edit Profile</Link>
                   </div>
                 </div>
               </div>
@@ -74,11 +85,11 @@ class Dashboard extends Component {
           <div className="recommended-friends-info" key={index}>
             <img src={element.picture} alt='' className="profile-img" />
             <div className="recommended-friend-name-box">
-            <h5 className="recommended-first-name" >{element.first_name}</h5>
-            <h5 className="recommended-last-name" >{element.last_name}</h5>
+              <h5 className="recommended-first-name" >{element.first_name}</h5>
+              <h5 className="recommended-last-name" >{element.last_name}</h5>
             </div>
             <div className="add-friend-box">
-            <button className="add-friend">Add Friend</button>
+              <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Add Friend</button>
             </div>
           </div>
         )
@@ -105,7 +116,7 @@ class Dashboard extends Component {
               <h2 className="recommended-friends-title">Recommended Friends</h2>
               <h4>Sorted by</h4>
               <select>
-                
+
               </select>
             </div>
             <div className="recommended-friends" >
@@ -118,13 +129,13 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps(state){
-  return{
+function mapStateToProps(state) {
+  return {
     user: state.user
   }
 }
 
 export default connect(
   mapStateToProps,
-  {updateUserData}
+  { updateUserData }
 )(Dashboard)
