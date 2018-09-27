@@ -105,5 +105,32 @@ margin-right: 2vw;
     grid-template-columns: 15vw 15vw;
     grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh;
     margin-top: 3vh;
+    margin-bottom: 5vh;
 }
 
+.profile-page-h5s{
+    margin: 3vh 0 .25vh 1vh;
+    font-weight: 500;
+}
+
+select{
+    width: 13vw;
+    height: 3.6vh;
+    background-color: #f2f2f2;
+}
+
+.profile-page-input-color{
+    width: 13vw;
+    height: 3vh;
+    border-color: #ff9770;
+    border-style: solid;
+}
+
+.profile-page-input{
+    width: 13vw;
+    height: 3vh;
+    background-color: #f2f2f2;
+    border-style: solid;
+    border-width: thin;
+    border-color: gray;
+    }

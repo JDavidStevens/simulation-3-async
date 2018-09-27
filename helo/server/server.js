@@ -38,6 +38,7 @@ app.get('/api/user-data', sessionCtrl)
 //Robots endpoints
 app.get('/api/user/list',robotCtrl.read)
 app.get('/api/user/list/:id',robotCtrl.getOne)
+app.patch('/api/user/patch/:id',robotCtrl.update)
 app.post('/api/friend/add',robotCtrl.add)
 
 

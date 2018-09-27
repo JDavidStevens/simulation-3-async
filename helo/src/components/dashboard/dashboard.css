@@ -134,6 +134,7 @@ padding: 0 .75vw 0 .5vw;
     display: grid;
     grid-template-columns: 25vw 25vw;
     grid-template-rows: 18vh 18vh 18vh 18vh 18vh 18vh;
+    margin-bottom: 5vh;
     }
 
 .recommended-friends-info{
