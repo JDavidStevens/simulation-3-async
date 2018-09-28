@@ -121,12 +121,35 @@ padding: 0 .75vw 0 .5vw;
 
 .recommended-friends-heading{
     display: grid;
-    grid-template-columns: 30vw 16.5vw;
+    grid-template-columns: 25vw 25vw ;
+    height: 6vh;
+    /* justify-content: space-between; */
 }
 
 .recommended-friends-title{
     text-align: left;
-    margin-left: 1vw;
+    margin: .75vh 0 0 .25vw;
+    justify-content: end;
+}
+
+.sort-container{
+display: grid;
+grid-template-columns: 5vw 7vw;
+justify-content: end;
+
+}
+
+.sorted-by-title{
+font-weight: 500;
+margin-right: -1vw;
+margin-top: 1.5vh;
+}
+
+.recommended-friend-sorter{
+    width: 7.5vw;
+    height: 3vh;
+    border-radius: 3px;
+    margin-top: 1vh;
 }
 
 .recommended-friends{
@@ -182,4 +205,10 @@ margin-right: 4vw;
 
 .add-friend:hover{
     cursor: pointer;
+}
+
+.no-recommendations{
+    text-align: center;
+    height: 50vh;
+    margin-bottom: 6vh;
 }

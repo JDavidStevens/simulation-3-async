@@ -15,7 +15,8 @@ class Dashboard extends Component {
 
     this.state = {
 
-      robots: []
+      robots: [],
+      recommendations:[]
     }
 
     this.logout = this.logout.bind(this);
@@ -36,7 +37,7 @@ class Dashboard extends Component {
       })
 
     axios.get('/api/user/list').then(response => {
-      this.setState({ robots: response.data })
+      this.setState({ robots: response.data})
     })
   }
 
@@ -50,6 +51,7 @@ class Dashboard extends Component {
     axios.post(`/api/friend/add`, { id })
       .then(results => { this.setState({ robots: results.data }) })
   }
+
 
   render() {
     let self = this.state.robots.map((element, index) => {
@@ -81,7 +83,7 @@ class Dashboard extends Component {
     let robos = this.state.robots.map((element, index) => {
       if (element.auth_id == null && element.friend == null) {
         return (
-
+          
           <div className="recommended-friends-info" key={index}>
             <img src={element.picture} alt='' className="profile-img" />
             <div className="recommended-friend-name-box">
@@ -92,9 +94,39 @@ class Dashboard extends Component {
               <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Add Friend</button>
             </div>
           </div>
+          
         )
       }
+      
     })
+
+    
+//     function test(){
+
+      
+//       if(recommendations.length !==0){
+//       return(
+//       <div className="recommended-friends">
+//       <div className="recommended-friends-info">
+//     <img src={recommendations.picture} alt='' className="profile-img" />
+//     <div className="recommended-friend-name-box">
+//       <h5 className="recommended-first-name" >{recommendations.first_name}</h5>
+//       <h5 className="recommended-last-name" >{recommendations.last_name}</h5>
+//     </div>
+//     <div className="add-friend-box">
+//       <button className="add-friend" onClick={() => this.handleAddFriend(recommendations.id)}>Add Friend</button>
+//     </div>
+//       </div>
+//       </div>)
+//       }else{
+// return(
+//     <div className="no-recommendations">
+//     <h5>No Recommendations</h5>
+//     </div>)
+//   }}
+
+    
+    
 
     return (
       <div className="dashboard-page">
@@ -113,15 +145,28 @@ class Dashboard extends Component {
           {self}
           <div className="recommended-friends-box">
             <div className="recommended-friends-heading">
-              <h2 className="recommended-friends-title">Recommended Friends</h2>
-              <h4>Sorted by</h4>
-              <select>
-
+              
+            <h2 className="recommended-friends-title">Recommended Friends</h2>
+            <div className="sort-container">
+              <h5 className="sorted-by-title">Sorted by</h5>
+              <select className="recommended-friend-sorter">
+              
               </select>
+              </div>
             </div>
-            <div className="recommended-friends" >
-              {robos}
-            </div>
+            
+            <div className="recommended-friends">
+              {/* {robos!==[] ? (
+                robos
+                ):(
+                  <div>
+                  <h5>No Recommendations</h5>
+                  </div>
+                )} */}
+
+                {robos}
+              </div>
+            
           </div>
         </div>
       </div>
@@ -139,3 +184,16 @@ export default connect(
   mapStateToProps,
   { updateUserData }
 )(Dashboard)
+
+
+
+{/* <div className="recommended-friends-info" key={index}>
+            <img src={element.picture} alt='' className="profile-img" />
+            <div className="recommended-friend-name-box">
+              <h5 className="recommended-first-name" >{element.first_name}</h5>
+              <h5 className="recommended-last-name" >{element.last_name}</h5>
+            </div>
+            <div className="add-friend-box">
+              <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Add Friend</button>
+            </div>
+          </div> */}

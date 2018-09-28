@@ -33,6 +33,7 @@ export default class Profile extends Component {
     this.handleDay = this.handleDay.bind(this);
     this.handleMonth = this.handleMonth.bind(this);
     this.handleMonth = this.handleMonth.bind(this);
+    this.logout=this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -125,6 +126,12 @@ export default class Profile extends Component {
         year: response.data[0].byear,
         img: response.data[0].picture
       })
+    })
+  }
+
+  logout() {
+    axios.post('/api/auth/logout').then(res => {
+      this.props.history.push('/')
     })
   }
 
