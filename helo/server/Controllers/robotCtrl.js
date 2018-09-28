@@ -41,11 +41,10 @@ module.exports = {
     add: (req, res) => {
         const dbInstance = req.app.get('db');
 
-        dbInstance.addFriend().then(
-            () => {
-                res.sendStatus(200)
-            }
-        )
+        dbInstance.addFriend([req.session.user.id,req.body.id])
+        .then(robos=> {
+                res.status(200).send(robos)
+            })
             .catch(err => {
                 res.status(500).send({ errorMessage: "Oops! Something went wrong." });
                 console.log(err);

@@ -29,7 +29,7 @@ class Dashboard extends Component {
 
       .then((res) => {
         this.props.updateUserData(res.data)
-        console.log("What?", res.data)
+        // console.log("What?", res.data)
       })
       .catch(() => {
         this.props.history.push('/')
@@ -48,7 +48,7 @@ class Dashboard extends Component {
 
   handleAddFriend(id) {
     axios.post(`/api/friend/add`, { id })
-      .then(results => { this.setState({ robots: results.data[0] }) })
+      .then(results => { this.setState({ robots: results.data }) })
   }
 
   render() {
