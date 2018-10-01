@@ -2,6 +2,14 @@ module.exports = {
     read: (req, res) => {
         const dbInstance = req.app.get('db');
 
+        if(req.query.search){
+            dbInstance.search([req.query.search])
+            .then(robos=>res.status(200).send(robos))
+            .catch(err=>{
+                res.status(500).send({errorMessage: "Error"});
+                console.log(err);
+            });
+        }else{
         dbInstance.robots().then(
             robos => {
                 res.status(200).send(robos)
@@ -10,6 +18,7 @@ module.exports = {
                 res.status(500).send({ errorMessage: "Oops! Something went wrong." });
                 console.log(err);
             })
+        }
     },
 
     getOne: (req, res) => {

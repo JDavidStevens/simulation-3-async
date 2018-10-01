@@ -12,13 +12,14 @@ export default class SearchPage extends Component {
 
     this.state = {
       robots: [],
-      name:'',
+      name: '',
       nameQuery: ''
     }
 
     // this.handleName=this.handleName.bind(this);
-    this.lookUp=this.lookUp.bind(this);
-    this.handleReset=this.handleReset.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.lookUp = this.lookUp.bind(this);
+    this.handleReset = this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -30,19 +31,29 @@ export default class SearchPage extends Component {
     })
   }
 
-  handleName(event){
-    this.setState({name: event.target.value})  
-}
+  handleName(event) {
+    this.setState({ name: event.target.value })
+  }
 
-  lookUp(value){
-  this.setState({nameQuery:value})
-}
+  lookUp(value) {
+    this.setState({ nameQuery: value })
+  }
 
-handleReset(){
-  this.setState({
-    nameQuery:''
-  })
-}
+  handleReset() {
+    axios.get('/api/user/list').then(response => {
+      this.setState({ robots: response.data, nameQuery: '' })
+    })
+  }
+
+  handleSearch() {
+    axios.get(`/api/user/list?search=${this.state.nameQuery}`)
+      .then(response => {
+        this.setState({ robots: response.data, nameQuery: "" })
+      })
+      .catch(err => {
+        console.log("search axios request")
+      })
+  }
 
   logout() {
     axios.post('/api/auth/logout').then(res => {
@@ -64,12 +75,12 @@ handleReset(){
               <h5 className="recommended-last-name" >{element.last_name}</h5>
             </div>
             <div className="add-friend-box">
-             <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Add Friend</button>
+              <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Add Friend</button>
             </div>
           </div>
 
         )
-      }else if(element.auth_id == null && element.friend !== null){
+      } else if (element.auth_id == null && element.friend !== null) {
         return (
 
           <div className="recommended-friends-info" key={index}>
@@ -79,7 +90,7 @@ handleReset(){
               <h5 className="recommended-last-name" >{element.last_name}</h5>
             </div>
             <div className="add-friend-box">
-             <button className="add-friend"  onClick={() => this.handleAddFriend(element.id)}>Remove Friend</button>
+              <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Remove Friend</button>
             </div>
           </div>
 
@@ -107,8 +118,8 @@ handleReset(){
           <option>First Name</option>
           <option>Last Name</option>
         </select>
-        <input value={this.state.nameQuery} onChange={e=>this.lookUp(e.target.value)} />
-        <button>Search</button>
+        <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} />
+        <button onClick={this.handleSearch}>Search</button>
         <button onClick={this.handleReset}>Reset</button>
         <div className="recommended-friends">
           {results}
