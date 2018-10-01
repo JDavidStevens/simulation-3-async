@@ -3,6 +3,7 @@ import Home from '../../assets/home.png';
 import Search from '../../assets/search.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+// import Pagination from "react-js-pagination";
 import './search.css';
 
 export default class SearchPage extends Component {
@@ -14,6 +15,7 @@ export default class SearchPage extends Component {
       robots: [],
       name: 'First Name',
       nameQuery: ''
+      // activePage: 1
     }
 
     this.handleName=this.handleName.bind(this);
@@ -22,6 +24,7 @@ export default class SearchPage extends Component {
     this.lookUp = this.lookUp.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
+    // this.handlePageChange=this.handlePageChange.bind(this);
   }
 
 
@@ -65,6 +68,10 @@ export default class SearchPage extends Component {
         console.log("search axios request")
       })
   }
+
+  // handlePageChange(pageNumber){
+  //   this.setState({activePage: pageNumber})
+  // }
 
   logout() {
     axios.post('/api/auth/logout').then(res => {
@@ -148,6 +155,27 @@ export default class SearchPage extends Component {
         <div className="recommended-friends">
           {results}
         </div>
+        <div className="pagination-box-wrapper">
+        <div className="pagination-box">
+        <div className="pagination">
+        <a href="#/search">1</a>
+        <a href="#/search/2">2</a>
+        <a href="#/search/3">3</a>
+        <a href="#/search/4">4</a>
+        <a href="#/search/5">5</a>
+        <a href="#/search/6">6</a>
+        </div>
+        </div>
+        </div>
+        {/* <div>
+          <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={4}
+          totalItemsCount={24}
+          pageRangeDisplayed={6}
+          onChange={this.handlePageChange}
+          />
+        </div> */}
         </div>
         </div>
       
