@@ -11,12 +11,15 @@ export default class SearchPage extends Component {
     super()
 
     this.state = {
-
-      robots: []
+      robots: [],
+      name:'',
+      nameQuery: ''
     }
 
+    // this.handleName=this.handleName.bind(this);
+    this.lookUp=this.lookUp.bind(this);
+    this.handleReset=this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
-
   }
 
 
@@ -26,6 +29,20 @@ export default class SearchPage extends Component {
       this.setState({ robots: response.data })
     })
   }
+
+  handleName(event){
+    this.setState({name: event.target.value})  
+}
+
+  lookUp(value){
+  this.setState({nameQuery:value})
+}
+
+handleReset(){
+  this.setState({
+    nameQuery:''
+  })
+}
 
   logout() {
     axios.post('/api/auth/logout').then(res => {
@@ -86,13 +103,13 @@ export default class SearchPage extends Component {
           <a onClick={this.logout} className="logout">Logout</a>
 
         </div>
-        <select>
+        <select onChange={this.handleName}>
           <option>First Name</option>
           <option>Last Name</option>
         </select>
-        <input></input>
+        <input value={this.state.nameQuery} onChange={e=>this.lookUp(e.target.value)} />
         <button>Search</button>
-        <button>Reset</button>
+        <button onClick={this.handleReset}>Reset</button>
         <div className="recommended-friends">
           {results}
         </div>
