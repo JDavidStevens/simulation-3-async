@@ -12,12 +12,13 @@ export default class SearchPage extends Component {
 
     this.state = {
       robots: [],
-      name: '',
+      name: 'First Name',
       nameQuery: ''
     }
 
-    // this.handleName=this.handleName.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleName=this.handleName.bind(this);
+    this.handleSearchFirst = this.handleSearchFirst.bind(this);
+    this.handleSearchLast = this.handleSearchLast.bind(this);
     this.lookUp = this.lookUp.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
@@ -45,8 +46,18 @@ export default class SearchPage extends Component {
     })
   }
 
-  handleSearch() {
-    axios.get(`/api/user/list?search=${this.state.nameQuery}`)
+  handleSearchFirst() {
+    axios.get(`/api/user/list?first=${this.state.nameQuery}`)
+      .then(response => {
+        this.setState({ robots: response.data, nameQuery: "" })
+      })
+      .catch(err => {
+        console.log("search axios request")
+      })
+  }
+
+  handleSearchLast() {
+    axios.get(`/api/user/list?last=${this.state.nameQuery}`)
       .then(response => {
         this.setState({ robots: response.data, nameQuery: "" })
       })
@@ -124,8 +135,14 @@ export default class SearchPage extends Component {
           <option>Last Name</option>
         </select>
         <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} className="search-input"/>
-        <button onClick={this.handleSearch} className="search-button">Search</button>
+        {(this.state.name==="First Name")?(
+        <button onClick={this.handleSearchFirst} className="search-button">Search</button>
+        ):(
+          <button onClick={this.handleSearchLast} className="search-button">Search</button>
+        )
+        }
         <button onClick={this.handleReset} className="reset-button">Reset</button>
+        
         </div>
         </div>
         <div className="recommended-friends">

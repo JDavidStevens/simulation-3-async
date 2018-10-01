@@ -1,9 +1,16 @@
 module.exports = {
     read: (req, res) => {
         const dbInstance = req.app.get('db');
-
-        if(req.query.search){
-            dbInstance.search([req.query.search])
+        console.log("NameSearch:",req.query.name,req.query.nameQuery)
+        if(req.query.first){
+            dbInstance.searchFirst([req.query.first])
+            .then(robos=>res.status(200).send(robos))
+            .catch(err=>{
+                res.status(500).send({errorMessage: "Error"});
+                console.log(err);
+            });
+        }else if(req.query.last){
+            dbInstance.searchLast([req.query.last])
             .then(robos=>res.status(200).send(robos))
             .catch(err=>{
                 res.status(500).send({errorMessage: "Error"});
