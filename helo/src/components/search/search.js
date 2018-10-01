@@ -114,17 +114,26 @@ export default class SearchPage extends Component {
           <a onClick={this.logout} className="logout">Logout</a>
 
         </div>
-        <select onChange={this.handleName}>
+        <div className="search-content">
+        <div className="search-friends-box">
+        <div className="search-heading">
+        
+        
+        <select onChange={this.handleName} className="first-last-selector">
           <option>First Name</option>
           <option>Last Name</option>
         </select>
-        <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} />
-        <button onClick={this.handleSearch}>Search</button>
-        <button onClick={this.handleReset}>Reset</button>
+        <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} className="search-input"/>
+        <button onClick={this.handleSearch} className="search-button">Search</button>
+        <button onClick={this.handleReset} className="reset-button">Reset</button>
+        </div>
+        </div>
         <div className="recommended-friends">
           {results}
         </div>
-      </div>
+        </div>
+        </div>
+      
     )
   }
 }

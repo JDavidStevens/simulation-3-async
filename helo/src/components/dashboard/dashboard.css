@@ -123,7 +123,6 @@ padding: 0 .75vw 0 .5vw;
     display: grid;
     grid-template-columns: 25vw 25vw ;
     height: 6vh;
-    /* justify-content: space-between; */
 }
 
 .recommended-friends-title{
