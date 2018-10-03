@@ -36,6 +36,7 @@ app.post('/api/auth/logout', authCtrl.logout)
 app.get('/api/user-data', sessionCtrl)
 
 //Robots endpoints
+app.get('/api/user/self', robotCtrl.getSelf)
 app.get('/api/user/list',robotCtrl.read)
 app.get('/api/user/list/:id',robotCtrl.getOne)
 app.patch('/api/user/patch/:id',robotCtrl.update)

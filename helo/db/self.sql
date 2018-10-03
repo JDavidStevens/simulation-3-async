@@ -1,0 +1,1 @@
+select * from robots where id =$1;

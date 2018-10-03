@@ -4,6 +4,7 @@ create table users_auth0(
     name VARCHAR(75),
     email VARCHAR(75),
     picture TEXT
+    robot_id int REFERENCES robots(id)
 )
 
 create table robots(

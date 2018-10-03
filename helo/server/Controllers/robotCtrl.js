@@ -1,7 +1,8 @@
 module.exports = {
     read: (req, res) => {
         const dbInstance = req.app.get('db');
-        console.log("NameSearch:",req.query.name,req.query.nameQuery)
+        // console.log("NameSearch:",req.query.name,req.query.nameQuery)
+        
         if(req.query.first){
             dbInstance.searchFirst([req.query.first])
             .then(robos=>res.status(200).send(robos))
@@ -17,8 +18,11 @@ module.exports = {
                 console.log(err);
             });
         }else{
-        dbInstance.robots().then(
+        dbInstance.robots([req.session.user.robot_id])
+        // console.log("user acquired?",req.session.user)
+        .then(
             robos => {
+                // console.log("robots.sql:", robos)
                 res.status(200).send(robos)
             })
             .catch(err => {
@@ -26,6 +30,17 @@ module.exports = {
                 console.log(err);
             })
         }
+    },
+
+    getSelf: (req,res)=>{
+        const dbInstance = req.app.get('db');
+
+        dbInstance.self([req.session.user.id])
+            .then(self=>res.status(200).send(self))
+            .catch(err => {
+                res.status(500).send({ errorMessage: "Oops! Something went wrong." })
+                console.log(err)
+            })
     },
 
     getOne: (req, res) => {

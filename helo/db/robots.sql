@@ -1,1 +1,3 @@
-select * from robots order by id asc;
+select * from robots 
+where id != $1
+order by id asc;
