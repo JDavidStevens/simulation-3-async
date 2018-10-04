@@ -36,11 +36,19 @@ app.post('/api/auth/logout', authCtrl.logout)
 app.get('/api/user-data', sessionCtrl)
 
 //Robots endpoints
+
+//****Dashboard Page****
 app.get('/api/user/self', robotCtrl.getSelf)
-app.get('/api/user/list',robotCtrl.read)
-app.get('/api/user/list/:id',robotCtrl.getOne)
+app.get('/api/recommended',robotCtrl.recommend)
+app.post('/api/recommended/add',robotCtrl.add)
+
+//****Profile Page****
+// app.get('/api/user/self', robotCtrl.getSelf)
 app.patch('/api/user/patch/:id',robotCtrl.update)
-app.post('/api/friend/add',robotCtrl.add)
+
+//****Search Page****
+app.get('/api/user/list',robotCtrl.read)
+// app.get('/api/user/list/:id',robotCtrl.getOne)
 
 
 app.listen(SERVER_PORT, () => { console.log(`Sever is listening on port ${SERVER_PORT}.`) })

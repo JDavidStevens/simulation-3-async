@@ -41,7 +41,7 @@ class Dashboard extends Component {
       this.setState({ user: response.data[0] })
     })
 
-    axios.get('/api/user/list').then(response => {
+    axios.get('/api/recommended').then(response => {
       this.setState({ robots: response.data })
   })
   }
@@ -51,7 +51,7 @@ class Dashboard extends Component {
 }
 
   handleAddFriend(id) {
-    axios.post(`/api/friend/add`, { id })
+    axios.post(`/api/recommended/add`, { id })
         .then(results => { this.setState({ robots: results.data }) })
 }
 

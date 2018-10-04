@@ -3,7 +3,7 @@ import Home from '../../assets/home.png';
 import Search from '../../assets/search.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import Pagination from "react-js-pagination";
+import Pagination from "react-js-pagination";
 import './search.css';
 
 export default class SearchPage extends Component {
@@ -12,26 +12,29 @@ export default class SearchPage extends Component {
     super()
 
     this.state = {
-      robots: [],
+      users: [],
       name: 'First Name',
-      nameQuery: ''
-      // activePage: 1
+      nameQuery: '',
+      activePage: 1,
+      itemsCountPerPage: 1,
+      totalItemsCount: 1,
+      pageRangeDisplayed: 4
     }
 
-    this.handleName=this.handleName.bind(this);
+    this.handleName = this.handleName.bind(this);
     this.handleSearchFirst = this.handleSearchFirst.bind(this);
     this.handleSearchLast = this.handleSearchLast.bind(this);
     this.lookUp = this.lookUp.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
-    // this.handlePageChange=this.handlePageChange.bind(this);
+    this.handlePageChange=this.handlePageChange.bind(this);
   }
 
 
   componentDidMount() {
 
-    axios.get('/api/user/list').then(response => {
-      this.setState({ robots: response.data })
+    axios.get('/api/user/list?limit=4&offset=4').then(response => {
+      this.setState({ users: response.data})
     })
   }
 
@@ -45,14 +48,14 @@ export default class SearchPage extends Component {
 
   handleReset() {
     axios.get('/api/user/list').then(response => {
-      this.setState({ robots: response.data, nameQuery: '' })
+      this.setState({ users: response.data, nameQuery: '' })
     })
   }
 
   handleSearchFirst() {
     axios.get(`/api/user/list?first=${this.state.nameQuery}`)
       .then(response => {
-        this.setState({ robots: response.data, nameQuery: "" })
+        this.setState({ users: response.data, nameQuery: "" })
       })
       .catch(err => {
         console.log("search axios request")
@@ -62,16 +65,19 @@ export default class SearchPage extends Component {
   handleSearchLast() {
     axios.get(`/api/user/list?last=${this.state.nameQuery}`)
       .then(response => {
-        this.setState({ robots: response.data, nameQuery: "" })
+        this.setState({ users: response.data, nameQuery: "" })
       })
       .catch(err => {
         console.log("search axios request")
       })
   }
 
-  // handlePageChange(pageNumber){
-  //   this.setState({activePage: pageNumber})
-  // }
+  handlePageChange(pageNumber) {
+    this.setState({ activePage: pageNumber })
+    axios.get('/api/user/list').then(response => {
+      this.setState({ users: response.data})
+    })
+  }
 
   logout() {
     axios.post('/api/auth/logout').then(res => {
@@ -82,8 +88,8 @@ export default class SearchPage extends Component {
 
   render() {
 
-    let results = this.state.robots.map((element, index) => {
-      if (element.auth_id == null && element.friend == null) {
+    let results = this.state.users.map((element, index) => {
+      if (element.friend == null) {
         return (
 
           <div className="recommended-friends-info" key={index}>
@@ -98,7 +104,7 @@ export default class SearchPage extends Component {
           </div>
 
         )
-      } else if (element.auth_id == null && element.friend !== null) {
+      } else if (element.friend !== null) {
         return (
 
           <div className="recommended-friends-info" key={index}>
@@ -133,52 +139,52 @@ export default class SearchPage extends Component {
 
         </div>
         <div className="search-content">
-        <div className="search-friends-box">
-        <div className="search-heading">
-        
-        
-        <select onChange={this.handleName} className="first-last-selector">
-          <option>First Name</option>
-          <option>Last Name</option>
-        </select>
-        <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} className="search-input"/>
-        {(this.state.name==="First Name")?(
-        <button onClick={this.handleSearchFirst} className="search-button">Search</button>
-        ):(
-          <button onClick={this.handleSearchLast} className="search-button">Search</button>
-        )
-        }
-        <button onClick={this.handleReset} className="reset-button">Reset</button>
-        
-        </div>
-        </div>
-        <div className="recommended-friends">
-          {results}
-        </div>
-        <div className="pagination-box-wrapper">
-        <div className="pagination-box">
-        <div className="pagination">
-        <a href="#/search">1</a>
+          <div className="search-friends-box">
+            <div className="search-heading">
+
+
+              <select onChange={this.handleName} className="first-last-selector">
+                <option>First Name</option>
+                <option>Last Name</option>
+              </select>
+              <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} className="search-input" />
+              {(this.state.name === "First Name") ? (
+                <button onClick={this.handleSearchFirst} className="search-button">Search</button>
+              ) : (
+                  <button onClick={this.handleSearchLast} className="search-button">Search</button>
+                )
+              }
+              <button onClick={this.handleReset} className="reset-button">Reset</button>
+
+            </div>
+          </div>
+          <div className="recommended-friends">
+            {results}
+          </div>
+          <div className="pagination-box-wrapper">
+            <div className="pagination-box">
+              <div className="pagination">
+                {/* <a href="#/search">1</a>
         <a href="#/search/2">2</a>
         <a href="#/search/3">3</a>
         <a href="#/search/4">4</a>
         <a href="#/search/5">5</a>
-        <a href="#/search/6">6</a>
+        <a href="#/search/6">6</a> */}
+                <Pagination
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={this.state.itemsCountPerPage}
+                  totalItemsCount={this.state.totalItemsCount}
+                  pageRangeDisplayed={this.state.pageRangeDisplayed}
+                  onChange={this.handlePageChange}
+                  hideNavigation={true}
+                  hideFirstLastPages={true}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        {/* <div>
-          <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={4}
-          totalItemsCount={24}
-          pageRangeDisplayed={6}
-          onChange={this.handlePageChange}
-          />
-        </div> */}
-        </div>
-        </div>
-      
+      </div>
+
     )
   }
 }

@@ -37,7 +37,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/user/list/${this.props.match.params.id}`).then(response => {
+    axios.get(`/api/user/self`).then(response => {
       // console.log("Profile response", response.data[0])
       this.setState({
         firstName: response.data[0].first_name,
@@ -82,7 +82,7 @@ export default class Profile extends Component {
     this.setState({ year: value })
   };
 
-  handleUpdate(id, firstName, lastName, gender, hairColor, eyeColor, hobby, day, month, year) {
+  handleUpdate(id,firstName, lastName, gender, hairColor, eyeColor, hobby, day, month, year) {
 
     axios.patch(`/api/user/patch/${id}`, {
       first_name: firstName,
@@ -111,8 +111,8 @@ export default class Profile extends Component {
       })
   };
 
-  handleCancel(id){
-    axios.get(`/api/user/list/${id}`).then(response => {
+  handleCancel(){
+    axios.get(`/api/user/self`).then(response => {
       
       this.setState({
         firstName: response.data[0].first_name,

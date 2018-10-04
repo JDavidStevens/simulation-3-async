@@ -20,3 +20,11 @@ create table robots(
     byear int not null,
     picture text
 )
+
+-- limit/offset example for first name search--
+
+select * from robots 
+where robot_id <> $1
+order by last_name asc
+offset 24 
+limit 24;
