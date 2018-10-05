@@ -3,7 +3,6 @@ import Home from '../../assets/home.png';
 import Search from '../../assets/search.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Pagination from "react-js-pagination";
 import './search.css';
 
 export default class SearchPage extends Component {
@@ -15,10 +14,8 @@ export default class SearchPage extends Component {
       users: [],
       name: 'First Name',
       nameQuery: '',
-      activePage: 1,
-      itemsCountPerPage: 1,
-      totalItemsCount: 1,
-      pageRangeDisplayed: 4
+      offSet: 0,
+      pages: 1  
     }
 
     this.handleName = this.handleName.bind(this);
@@ -27,14 +24,19 @@ export default class SearchPage extends Component {
     this.lookUp = this.lookUp.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.logout = this.logout.bind(this);
-    this.handlePageChange=this.handlePageChange.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
 
   componentDidMount() {
 
-    axios.get('/api/user/list?limit=4&offset=4').then(response => {
-      this.setState({ users: response.data})
+    axios.get(`/api/user/list?offset=${this.state.offSet}`).then(response => {
+      this.setState({ users: response.data })
+    })
+
+    axios.get('/api/user/count').then(response => {
+      this.setState({ pages: Math.ceil(response.data[0].count/4)})
+      console.log("count",this.state.count)
     })
   }
 
@@ -72,10 +74,13 @@ export default class SearchPage extends Component {
       })
   }
 
-  handlePageChange(pageNumber) {
-    this.setState({ activePage: pageNumber })
-    axios.get('/api/user/list').then(response => {
-      this.setState({ users: response.data})
+  handlePageChange(num) {
+    this.setState({offSet:num})
+    axios.get(`/api/user/list?offset=${this.state.offSet}`)
+    // console.log("query", `/api/user/list?offset=${this.state.offSet}`)
+    
+    .then(response => {
+      this.setState({ users: response.data })
     })
   }
 
@@ -84,6 +89,8 @@ export default class SearchPage extends Component {
       this.props.history.push('/')
     })
   }
+
+  
 
 
   render() {
@@ -122,6 +129,20 @@ export default class SearchPage extends Component {
       }
     })
 
+   
+
+    let pagination = function(num){
+      for (let i = 1; i <=num.length; i++){
+        i ++
+        return <button onClick={()=>this.handlePageChange(i)}>{i}</button>
+      }
+    }
+
+     
+
+  
+  
+  
 
     return (
 
@@ -155,7 +176,6 @@ export default class SearchPage extends Component {
                 )
               }
               <button onClick={this.handleReset} className="reset-button">Reset</button>
-
             </div>
           </div>
           <div className="recommended-friends">
@@ -164,21 +184,12 @@ export default class SearchPage extends Component {
           <div className="pagination-box-wrapper">
             <div className="pagination-box">
               <div className="pagination">
-                {/* <a href="#/search">1</a>
-        <a href="#/search/2">2</a>
-        <a href="#/search/3">3</a>
-        <a href="#/search/4">4</a>
-        <a href="#/search/5">5</a>
-        <a href="#/search/6">6</a> */}
-                <Pagination
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={this.state.itemsCountPerPage}
-                  totalItemsCount={this.state.totalItemsCount}
-                  pageRangeDisplayed={this.state.pageRangeDisplayed}
-                  onChange={this.handlePageChange}
-                  hideNavigation={true}
-                  hideFirstLastPages={true}
-                />
+              {pagination(this.state.pages)}
+              {/* <a  onClick={()=>this.handlePageChange(0)}>1</a>
+              <a  onClick={()=>this.handlePageChange(3)}>2</a>
+              <a  onClick={()=>this.handlePageChange(6)}>3</a>
+              <a  onClick={()=>this.handlePageChange(9)}>4</a>
+              <a  onClick={()=>this.handlePageChange(12)}>5</a> */}
               </div>
             </div>
           </div>
@@ -188,3 +199,10 @@ export default class SearchPage extends Component {
     )
   }
 }
+
+
+//make loop from count to set up the number of pages needed
+
+//for loop can be ran w/o array
+
+//do math in the handlePageChange to specify offset

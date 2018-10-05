@@ -64,7 +64,7 @@ class Dashboard extends Component {
 
   render() {
 
-    console.log("attribute", this.state.attribute)
+    // console.log("attribute", this.state.attribute)
         let roboFilter = this.state.robots.filter(element=>{
             return element[this.state.attribute]===this.state.user[this.state.attribute]
         }
@@ -85,7 +85,7 @@ class Dashboard extends Component {
             )
         })
 
-        console.log("robofilter",roboFilter)
+        // console.log("robofilter",roboFilter)
 
     return (
       <div className="dashboard-page">

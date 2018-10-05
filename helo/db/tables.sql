@@ -18,7 +18,8 @@ create table robots(
     bday int not null,
     bmonth VARCHAR(50) not null,
     byear int not null,
-    picture text
+    picture text,
+    friend VARCHAR
 )
 
 -- limit/offset example for first name search--
@@ -28,3 +29,6 @@ where robot_id <> $1
 order by last_name asc
 offset 24 
 limit 24;
+
+
+--mockaroo to set up fake database data for testing!!!

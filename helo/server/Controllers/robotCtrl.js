@@ -1,5 +1,6 @@
 module.exports = {
     read: (req, res) => {
+        console.log("offset",req.query)
         const dbInstance = req.app.get('db');
         // console.log("NameSearch:",req.query.name,req.query.nameQuery)
         
@@ -18,8 +19,8 @@ module.exports = {
                 console.log(err);
             });
         }else{
-        dbInstance.robots([req.session.user.robot_id])
-        // console.log("user acquired?",req.session.user)
+            // console.log("string test", req.query.offset,req.query.offset*3)
+        dbInstance.robots([req.session.user.robot_id,req.query.offset])
         .then(
             robos => {
                 // console.log("robots.sql:", robos)
@@ -30,6 +31,22 @@ module.exports = {
                 console.log(err);
             })
         }
+    },
+
+    count: (req, res) => {
+        const dbInstance = req.app.get('db');
+    
+        dbInstance.count([req.session.user.robot_id])
+        // console.log("user acquired?",req.session.user)
+        .then(
+            sum => {
+                // console.log("sum.sql:", sum)
+                res.status(200).send(sum)
+            })
+            .catch(err => {
+                res.status(500).send({ errorMessage: "Oops! Something went wrong." });
+                console.log(err);
+            })
     },
 
     recommend:(req,res)=>{
