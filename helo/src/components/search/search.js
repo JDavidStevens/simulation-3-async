@@ -97,12 +97,12 @@ export default class SearchPage extends Component {
   }
 
   handleAddFriend(id) {
-    axios.post(`/api/recommended/add`, { id })
+    axios.post(`/api/friend/add?offset=${this.state.offSet}`, { id })
       .then(results => { this.setState({ users: results.data }) })
   }
 
   handleRemoveFriend(id) {
-    axios.post(`/api/friend/remove`, { id })
+    axios.post(`/api/friend/remove?offset=${this.state.offSet}`, { id })
       .then(results => { this.setState({ users: results.data }) })
   }
 

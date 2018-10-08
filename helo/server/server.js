@@ -61,6 +61,7 @@ app.patch('/api/user/patch/:id',robotCtrl.update)
 //****Search Page****
 app.get('/api/user/list',robotCtrl.read)
 app.get('/api/user/count', robotCtrl.count)
+app.post('/api/friend/add',robotCtrl.newFriend)
 app.post('/api/friend/remove',robotCtrl.remove)
 // app.get('/api/user/list/:id',robotCtrl.getOne)
 

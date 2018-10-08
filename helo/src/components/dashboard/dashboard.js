@@ -52,7 +52,7 @@ class Dashboard extends Component {
 
   handleAddFriend(id) {
     axios.post(`/api/recommended/add`, { id })
-        .then(results => { this.setState({ robots: results.data }) })
+        .then(response => { this.setState({ robots: response.data }) })
 }
 
   logout() {
