@@ -1,6 +1,6 @@
 module.exports = {
     read: (req, res) => {
-        console.log("offset",req.query)
+        // console.log("offset",req.query)
         const dbInstance = req.app.get('db');
         // console.log("NameSearch:",req.query.name,req.query.nameQuery)
         

@@ -131,16 +131,23 @@ export default class SearchPage extends Component {
 
    
 
-    let pagination = function(num){
-      for (let i = 1; i <=num.length; i++){
-        i ++
-        return <button onClick={()=>this.handlePageChange(i)}>{i}</button>
+    let pageCount = [];
+    
+    function numPages(num){
+      for (let i = 1; i <= num; i++){
+       pageCount.push(i)
       }
     }
 
-     
+     numPages(this.state.pages)
 
-  
+     console.log("pageCount:",pageCount)
+
+  let pagination = pageCount.map((element,id)=>{
+    return(
+      <button key={id} onClick={()=>this.handlePageChange(element)}>{element}</button>
+    )
+  })
   
   
 
@@ -184,7 +191,7 @@ export default class SearchPage extends Component {
           <div className="pagination-box-wrapper">
             <div className="pagination-box">
               <div className="pagination">
-              {pagination(this.state.pages)}
+              {pagination}
               {/* <a  onClick={()=>this.handlePageChange(0)}>1</a>
               <a  onClick={()=>this.handlePageChange(3)}>2</a>
               <a  onClick={()=>this.handlePageChange(6)}>3</a>
