@@ -1,3 +1,5 @@
 select * from robots
-where first_name = $1
-order by last_name asc;
+where id != $1 and first_name = $2 
+order by last_name asc
+offset $3
+limit 4;

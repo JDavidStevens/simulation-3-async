@@ -5,14 +5,14 @@ module.exports = {
         // console.log("NameSearch:",req.query.name,req.query.nameQuery)
         
         if(req.query.first){
-            dbInstance.searchFirst([req.query.first])
+            dbInstance.searchFirst([req.session.user.robot_id,req.query.first,req.query.offset])
             .then(robos=>res.status(200).send(robos))
             .catch(err=>{
                 res.status(500).send({errorMessage: "Error"});
                 console.log(err);
             });
         }else if(req.query.last){
-            dbInstance.searchLast([req.query.last])
+            dbInstance.searchLast([req.session.user.robot_id,req.query.last,req.query.offset])
             .then(robos=>res.status(200).send(robos))
             .catch(err=>{
                 res.status(500).send({errorMessage: "Error"});
@@ -35,6 +35,22 @@ module.exports = {
 
     count: (req, res) => {
         const dbInstance = req.app.get('db');
+
+        if(req.query.first){
+            dbInstance.countFirst([req.session.user.robot_id,req.query.first])
+            .then(sum=>res.status(200).send(sum))
+            .catch(err=>{
+                res.status(500).send({errorMessage: "Error"});
+                console.log(err);
+            });
+        }else if(req.query.last){
+            dbInstance.countLast([req.session.user.robot_id,req.query.last])
+            .then(sum=>res.status(200).send(sum))
+            .catch(err=>{
+                res.status(500).send({errorMessage: "Error"});
+                console.log(err);
+            });
+        }
     
         dbInstance.count([req.session.user.robot_id])
         // console.log("user acquired?",req.session.user)

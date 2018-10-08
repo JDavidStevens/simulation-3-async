@@ -36,7 +36,6 @@ export default class SearchPage extends Component {
 
     axios.get('/api/user/count').then(response => {
       this.setState({ pages: Math.ceil(response.data[0].count/4)})
-      console.log("count",this.state.count)
     })
   }
 
@@ -55,27 +54,34 @@ export default class SearchPage extends Component {
   }
 
   handleSearchFirst() {
-    axios.get(`/api/user/list?first=${this.state.nameQuery}`)
+    axios.get(`/api/user/list?first=${this.state.nameQuery}&offset=${this.state.offSet}`)
       .then(response => {
         this.setState({ users: response.data, nameQuery: "" })
       })
       .catch(err => {
         console.log("search axios request")
+      })
+
+      axios.get(`/api/user/count?first=${this.state.nameQuery}`).then(response => {
+        this.setState({ pages: Math.ceil(response.data[0].count/4)})
       })
   }
 
   handleSearchLast() {
-    axios.get(`/api/user/list?last=${this.state.nameQuery}`)
+    axios.get(`/api/user/list?last=${this.state.nameQuery}&offset=${this.state.offSet}`)
       .then(response => {
         this.setState({ users: response.data, nameQuery: "" })
       })
       .catch(err => {
         console.log("search axios request")
       })
+      axios.get(`/api/user/count?last=${this.state.nameQuery}`).then(response => {
+        this.setState({ pages: Math.ceil(response.data[0].count/4)})
+      })
   }
 
   handlePageChange(num) {
-    this.setState({offSet:num})
+    this.setState({offSet:((num -1)*(4))})
     axios.get(`/api/user/list?offset=${this.state.offSet}`)
     // console.log("query", `/api/user/list?offset=${this.state.offSet}`)
     
