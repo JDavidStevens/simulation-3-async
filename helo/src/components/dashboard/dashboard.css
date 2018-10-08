@@ -151,6 +151,10 @@ margin-top: 1.5vh;
     margin-top: 1vh;
 }
 
+.recommended-friend-sorter:hover{
+    cursor: pointer;
+}
+
 .recommended-friends{
     justify-content: center;
     display: grid;

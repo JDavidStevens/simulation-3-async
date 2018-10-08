@@ -15,7 +15,8 @@ export default class SearchPage extends Component {
       name: 'First Name',
       nameQuery: '',
       offSet: 0,
-      pages: 1
+      pages: 1,
+      activePage: 1
     }
 
     this.handleName = this.handleName.bind(this);
@@ -88,7 +89,7 @@ export default class SearchPage extends Component {
   }
 
   handlePageChange(num) {
-    this.setState({ offSet: ((num - 1) * (6)), acitvePage: num })
+    this.setState({ offSet: ((num - 1) * (6)), activePage: num })
 
     axios.get(`/api/user/list?offset=${this.state.offSet}`)
       .then(response => {
@@ -166,12 +167,18 @@ export default class SearchPage extends Component {
     console.log("pageCount:", pageCount)
 
     let pagination = pageCount.map((element, id) => {
+
+      if(element===this.state.activePage){
+        return (
+          <button className="active-pagination-button" key={id} onClick={() => this.handlePageChange(element)}>Page {element}</button>
+        )
+      }else{
       return (        
         <button className="pagination-button" key={id} onClick={() => this.handlePageChange(element)}>{element}</button>
-      )
+      )}
     })
 
-
+    
 
     return (
 
@@ -212,7 +219,7 @@ export default class SearchPage extends Component {
           </div>
           <div className="pagination-box-wrapper">
             <div className="pagination-box">
-              <div className="pagination">
+              <div id="pagination" className="pagination">
                 {pagination}
               </div>
             </div>
