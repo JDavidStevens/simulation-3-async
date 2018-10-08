@@ -84,7 +84,7 @@ module.exports = {
     getSelf: (req,res)=>{
         const dbInstance = req.app.get('db');
 
-        dbInstance.self([req.session.user.id])
+        dbInstance.self([req.session.user.robot_id])
             .then(self=>res.status(200).send(self))
             .catch(err => {
                 res.status(500).send({ errorMessage: "Oops! Something went wrong." })
@@ -92,23 +92,12 @@ module.exports = {
             })
     },
 
-    // getOne: (req, res) => {
-    //     const dbInstance = req.app.get('db');
-
-    //     dbInstance.oneRobot([req.session.user.id])
-    //         .then(robo => res.status(200).send(robo))
-    //         .catch(err => {
-    //             res.status(500).send({ errorMessage: "Oops! Something went wrong." })
-    //             console.log(err)
-    //         })
-    // },
-
     update: (req, res) => {
         const dbInstance = req.app.get('db');
         let { first_name, last_name, gender, hair, eye, hobby, bday, bmonth, byear} = req.body;
 
 
-        dbInstance.update([req.session.user.id, first_name,last_name, gender, hair, eye, hobby, bday, bmonth, byear])
+        dbInstance.update([req.session.user.robot_id, first_name,last_name, gender, hair, eye, hobby, bday, bmonth, byear])
             .then(robos => {
                 res.status(200).send(robos)
             })
@@ -121,7 +110,7 @@ module.exports = {
     add: (req, res) => {
         const dbInstance = req.app.get('db');
 
-        dbInstance.addFriend([req.session.user.id,req.body.id])
+        dbInstance.addFriend([req.session.user.robot_id,req.body.id])
         .then(robos=> {
                 res.status(200).send(robos)
             })
@@ -130,5 +119,18 @@ module.exports = {
                 console.log(err);
             })
 
+    },
+
+    remove: (req,res)=>{
+        const dbInstance= req.app.get('db');
+
+        dbInstance.removeFriend([req.session.user.robot_id,req.body.id])
+        .then(robos=>{
+            res.status(200).send(robos)
+        })
+        .catch(err=>{
+            res.status(500).send({errorMessage: "Oops! Something went wrong." });
+            console.log(err);
+        })
     }
 }

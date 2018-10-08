@@ -1,8 +1,8 @@
 select * from robots 
 where id != $1
-order by id asc
+order by last_name
 offset $2 
-limit 4;
+limit 6;
 
 
 

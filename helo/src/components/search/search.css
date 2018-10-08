@@ -104,6 +104,19 @@ margin-left: 15vw;
     width: 50%;
     margin: auto;
 }
+
+.delete-friend{
+    color: white;
+    border-radius: 1px;
+    background-image: radial-gradient(circle at 50%-46%,#737373,#403d39);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    height: 4vh; 
+    width: 6vw;   
+}
+
+.delete-friend:hover{
+    cursor: pointer;
+}
 .pagination-box-wrapper{
     display: flex;
     justify-content: center;
@@ -118,6 +131,23 @@ margin-left: 15vw;
     padding-top: 1vh;
     padding-bottom: 1.5vh;
     }
+
+.pagination-button{
+    margin: 1vh 1vw 1vh 0;
+    display: inline;
+    padding: .25vh .25vw .20vh .25vw;
+    border-radius: 1px;
+    background-image: radial-gradient(circle at 50% 0, #ffffff,#f1eceb);
+    border: solid 1px #ccc3c3;
+    
+    /* box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1), 0 6px 6px 0 rgba(0,0,0,0.2); */
+}
+
+.pagination-button:active{
+    /* color:white; */
+    background-color: black;
+}
+
 
 .pagination ul{
     margin: 1vh 0 1vh 0;
@@ -150,6 +180,3 @@ margin-left: 15vw;
     /* background-color: black; */
 }
 
-/* .pagination li:hover:not(.active){
-    background-color:red;
-} */

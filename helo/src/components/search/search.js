@@ -15,7 +15,7 @@ export default class SearchPage extends Component {
       name: 'First Name',
       nameQuery: '',
       offSet: 0,
-      pages: 1  
+      pages: 1
     }
 
     this.handleName = this.handleName.bind(this);
@@ -23,8 +23,10 @@ export default class SearchPage extends Component {
     this.handleSearchLast = this.handleSearchLast.bind(this);
     this.lookUp = this.lookUp.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.logout = this.logout.bind(this);
+    this.handleAddFriend = this.handleAddFriend.bind(this);
+    this.handleRemoveFriend = this.handleRemoveFriend.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
 
@@ -35,7 +37,7 @@ export default class SearchPage extends Component {
     })
 
     axios.get('/api/user/count').then(response => {
-      this.setState({ pages: Math.ceil(response.data[0].count/4)})
+      this.setState({ pages: Math.ceil(response.data[0].count / 6) })
     })
   }
 
@@ -48,9 +50,14 @@ export default class SearchPage extends Component {
   }
 
   handleReset() {
-    axios.get('/api/user/list').then(response => {
-      this.setState({ users: response.data, nameQuery: '' })
+    axios.get(`/api/user/list?offset=${this.state.offSet}`).then(response => {
+      this.setState({ users: response.data })
     })
+
+    axios.get('/api/user/count').then(response => {
+      this.setState({ pages: Math.ceil(response.data[0].count / 6) })
+    })
+
   }
 
   handleSearchFirst() {
@@ -62,9 +69,9 @@ export default class SearchPage extends Component {
         console.log("search axios request")
       })
 
-      axios.get(`/api/user/count?first=${this.state.nameQuery}`).then(response => {
-        this.setState({ pages: Math.ceil(response.data[0].count/4)})
-      })
+    axios.get(`/api/user/count?first=${this.state.nameQuery}`).then(response => {
+      this.setState({ pages: Math.ceil(response.data[0].count / 6) })
+    })
   }
 
   handleSearchLast() {
@@ -75,19 +82,28 @@ export default class SearchPage extends Component {
       .catch(err => {
         console.log("search axios request")
       })
-      axios.get(`/api/user/count?last=${this.state.nameQuery}`).then(response => {
-        this.setState({ pages: Math.ceil(response.data[0].count/4)})
-      })
+    axios.get(`/api/user/count?last=${this.state.nameQuery}`).then(response => {
+      this.setState({ pages: Math.ceil(response.data[0].count / 6) })
+    })
   }
 
   handlePageChange(num) {
-    this.setState({offSet:((num -1)*(4))})
+    this.setState({ offSet: ((num - 1) * (6)), acitvePage: num })
+
     axios.get(`/api/user/list?offset=${this.state.offSet}`)
-    // console.log("query", `/api/user/list?offset=${this.state.offSet}`)
-    
-    .then(response => {
-      this.setState({ users: response.data })
-    })
+      .then(response => {
+        this.setState({ users: response.data })
+      })
+  }
+
+  handleAddFriend(id) {
+    axios.post(`/api/recommended/add`, { id })
+      .then(results => { this.setState({ users: results.data }) })
+  }
+
+  handleRemoveFriend(id) {
+    axios.post(`/api/friend/remove`, { id })
+      .then(results => { this.setState({ users: results.data }) })
   }
 
   logout() {
@@ -96,7 +112,7 @@ export default class SearchPage extends Component {
     })
   }
 
-  
+
 
 
   render() {
@@ -127,7 +143,7 @@ export default class SearchPage extends Component {
               <h5 className="recommended-last-name" >{element.last_name}</h5>
             </div>
             <div className="add-friend-box">
-              <button className="add-friend" onClick={() => this.handleAddFriend(element.id)}>Remove Friend</button>
+              <button className="delete-friend" onClick={() => this.handleRemoveFriend(element.id)}>Remove Friend</button>
             </div>
           </div>
 
@@ -135,27 +151,27 @@ export default class SearchPage extends Component {
       }
     })
 
-   
+
 
     let pageCount = [];
-    
-    function numPages(num){
-      for (let i = 1; i <= num; i++){
-       pageCount.push(i)
+
+    function numPages(num) {
+      for (let i = 1; i <= num; i++) {
+        pageCount.push(i)
       }
     }
 
-     numPages(this.state.pages)
+    numPages(this.state.pages)
 
-     console.log("pageCount:",pageCount)
+    console.log("pageCount:", pageCount)
 
-  let pagination = pageCount.map((element,id)=>{
-    return(
-      <button key={id} onClick={()=>this.handlePageChange(element)}>{element}</button>
-    )
-  })
-  
-  
+    let pagination = pageCount.map((element, id) => {
+      return (        
+        <button className="pagination-button" key={id} onClick={() => this.handlePageChange(element)}>{element}</button>
+      )
+    })
+
+
 
     return (
 
@@ -197,12 +213,7 @@ export default class SearchPage extends Component {
           <div className="pagination-box-wrapper">
             <div className="pagination-box">
               <div className="pagination">
-              {pagination}
-              {/* <a  onClick={()=>this.handlePageChange(0)}>1</a>
-              <a  onClick={()=>this.handlePageChange(3)}>2</a>
-              <a  onClick={()=>this.handlePageChange(6)}>3</a>
-              <a  onClick={()=>this.handlePageChange(9)}>4</a>
-              <a  onClick={()=>this.handlePageChange(12)}>5</a> */}
+                {pagination}
               </div>
             </div>
           </div>

@@ -193,8 +193,8 @@ export default class Profile extends Component {
             <div className="gen-box">
               <h5 className="profile-page-h5s">Gender</h5>
               <select value={this.state.gender} onChange={this.handleGender}>
-                <option>Female</option>
-                <option>Male</option>
+                <option>female</option>
+                <option>male</option>
               </select>
             </div>
             <div className="bmonth-box">
@@ -218,13 +218,13 @@ export default class Profile extends Component {
             <div className="hair-box">
               <h5 className="profile-page-h5s">Hair Color</h5>
               <select value={this.state.hairColor} onChange={this.handleHair}>
-                <option>Brown</option>
-                <option>Blonde</option>
-                <option>Black</option>
-                <option>Red</option>
-                <option>Grey</option>
-                <option>White</option>
-                <option>None</option>
+                <option>brown</option>
+                <option>blonde</option>
+                <option>black</option>
+                <option>red</option>
+                <option>grey</option>
+                <option>white</option>
+                <option>none</option>
               </select>
             </div>
             <div className="byear-box">
@@ -234,9 +234,9 @@ export default class Profile extends Component {
             <div className="eye-color">
               <h5 className="profile-page-h5s">Eye Color</h5>
               <select value={this.state.eyeColor} onChange={this.handleEye}>
-                <option>Blue</option>
-                <option>Brown</option>
-                <option>Green</option>
+                <option>blue</option>
+                <option>brown</option>
+                <option>green</option>
               </select>
             </div>
           </div>
