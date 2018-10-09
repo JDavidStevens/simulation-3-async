@@ -40,6 +40,7 @@ massive(CONNECTION_STRING).then(dbInstance => {
 //     }
 //     next()
 // })
+
 //Auth0 endpoints
 app.get('/auth/callback', authCtrl.authCallBack)
 app.post('/api/auth/logout', authCtrl.logout)

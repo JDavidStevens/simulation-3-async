@@ -52,7 +52,7 @@ export default class SearchPage extends Component {
 
   handleReset() {
     axios.get(`/api/user/list?offset=${this.state.offSet}`).then(response => {
-      this.setState({ users: response.data })
+      this.setState({ users: response.data, nameQuery:'' })
     })
 
     axios.get('/api/user/count').then(response => {
@@ -64,11 +64,11 @@ export default class SearchPage extends Component {
   handleSearchFirst() {
     axios.get(`/api/user/list?first=${this.state.nameQuery}&offset=${this.state.offSet}`)
       .then(response => {
-        this.setState({ users: response.data, nameQuery: "" })
+        this.setState({ users: response.data})
       })
-      .catch(err => {
-        console.log("search axios request")
-      })
+      // .catch(err => {
+      //   console.log("search axios request")
+      // })
 
     axios.get(`/api/user/count?first=${this.state.nameQuery}`).then(response => {
       this.setState({ pages: Math.ceil(response.data[0].count / 6) })
@@ -78,7 +78,7 @@ export default class SearchPage extends Component {
   handleSearchLast() {
     axios.get(`/api/user/list?last=${this.state.nameQuery}&offset=${this.state.offSet}`)
       .then(response => {
-        this.setState({ users: response.data, nameQuery: "" })
+        this.setState({ users: response.data})
       })
       .catch(err => {
         console.log("search axios request")
@@ -201,8 +201,8 @@ export default class SearchPage extends Component {
 
 
               <select onChange={this.handleName} className="first-last-selector">
-                <option>First Name</option>
-                <option>Last Name</option>
+                <option value="First Name">First Name</option>
+                <option value="Last Name">Last Name</option>
               </select>
               <input value={this.state.nameQuery} onChange={e => this.lookUp(e.target.value)} className="search-input" />
               {(this.state.name === "First Name") ? (

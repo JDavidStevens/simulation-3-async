@@ -50,7 +50,7 @@ module.exports = {
                     res.status(500).send({ errorMessage: "Error" });
                     console.log(err);
                 });
-        }
+        }else{
 
         dbInstance.count([req.session.user.robot_id])
             // console.log("user acquired?",req.session.user)
@@ -62,7 +62,7 @@ module.exports = {
             .catch(err => {
                 res.status(500).send({ errorMessage: "Oops! Something went wrong." });
                 console.log(err);
-            })
+            })}
     },
 
     recommend: (req, res) => {

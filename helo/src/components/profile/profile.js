@@ -174,12 +174,12 @@ export default class Profile extends Component {
             <div className="hobby-box">
               <h5 className="profile-page-h5s">Hobby</h5>
               <select value={this.state.hobby} onChange={this.handleHobby}>
-                <option>music</option>
-                <option>motocross</option>
-                <option>crafting</option>
-                <option>basketball</option>
-                <option>obstacle courses</option>
-                <option>politics</option>
+                <option value="music">music</option>
+                <option value="motocross">motocross</option>
+                <option value="crafting">crafting</option>
+                <option value="basketball">basketball</option>
+                <option value="obstacle courses">obstacle courses</option>
+                <option value="politics">politics</option>
               </select>
             </div>
             <div className="lastname-box">
@@ -193,38 +193,38 @@ export default class Profile extends Component {
             <div className="gen-box">
               <h5 className="profile-page-h5s">Gender</h5>
               <select value={this.state.gender} onChange={this.handleGender}>
-                <option>female</option>
-                <option>male</option>
+                <option value="female">female</option>
+                <option value="male">male</option>
               </select>
             </div>
             <div className="bmonth-box">
               <h5 className="profile-page-h5s">Birthday Month</h5>
 
               <select value={this.state.month} onChange={this.handleMonth}>
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
               </select>
             </div>
             <div className="hair-box">
               <h5 className="profile-page-h5s">Hair Color</h5>
               <select value={this.state.hairColor} onChange={this.handleHair}>
-                <option>brown</option>
-                <option>blonde</option>
-                <option>black</option>
-                <option>red</option>
-                <option>grey</option>
-                <option>white</option>
-                <option>none</option>
+                <option value="brown">brown</option>
+                <option value="blonde">blonde</option>
+                <option value="black">black</option>
+                <option value="red">red</option>
+                <option value="grey">grey</option>
+                <option value="white">white</option>
+                <option value="none">none</option>
               </select>
             </div>
             <div className="byear-box">
@@ -234,9 +234,9 @@ export default class Profile extends Component {
             <div className="eye-color">
               <h5 className="profile-page-h5s">Eye Color</h5>
               <select value={this.state.eyeColor} onChange={this.handleEye}>
-                <option>blue</option>
-                <option>brown</option>
-                <option>green</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="green">green</option>
               </select>
             </div>
           </div>
